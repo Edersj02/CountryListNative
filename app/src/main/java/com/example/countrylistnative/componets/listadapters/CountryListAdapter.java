@@ -82,12 +82,10 @@ public class CountryListAdapter extends RecyclerView.Adapter<CountryListAdapter.
         }
         else {
             items.clear();
-            ArrayList<Country> count = new ArrayList<>();
             for (Country country : originalItems) {
                 if (country.getName().toLowerCase().contains(strSearch)) {
-                    count.add(country);
+                    items.add(country);
                 }
-                items.addAll(count);
             }
         }
         this.notifyDataSetChanged();

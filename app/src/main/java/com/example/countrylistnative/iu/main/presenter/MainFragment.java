@@ -103,12 +103,13 @@ public class MainFragment extends Fragment implements MainMvp.View {
     public void setViewPagerAdapter() {
         String[] continents = getResources().getStringArray(R.array.continents);
         SectionPagerAdapter pagerAdapter = new SectionPagerAdapter(getFragmentManager());
-        pagerAdapter.addFragment(ContinentFragment.newInstance(presenter, continents[0], search));
-        pagerAdapter.addFragment(ContinentFragment.newInstance(presenter, continents[1], search));
-        pagerAdapter.addFragment(ContinentFragment.newInstance(presenter, continents[2], search));
-        pagerAdapter.addFragment(ContinentFragment.newInstance(presenter, continents[3], search));
-        pagerAdapter.addFragment(ContinentFragment.newInstance(presenter, continents[4], search));
-        pagerAdapter.addFragment(ContinentFragment.newInstance(presenter, continents[5], search));
+
+        pagerAdapter.addFragment(ContinentFragment.newInstance(presenter, continents[0]));
+        pagerAdapter.addFragment(ContinentFragment.newInstance(presenter, continents[1]));
+        pagerAdapter.addFragment(ContinentFragment.newInstance(presenter, continents[2]));
+        pagerAdapter.addFragment(ContinentFragment.newInstance(presenter, continents[3]));
+        pagerAdapter.addFragment(ContinentFragment.newInstance(presenter, continents[4]));
+        pagerAdapter.addFragment(ContinentFragment.newInstance(presenter, continents[5]));
         pager.setAdapter(pagerAdapter);
     }
 

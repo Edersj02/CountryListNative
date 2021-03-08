@@ -12,11 +12,5 @@
     tools:ignore="UnusedAttribute"
     app:popupTheme="@style/Theme.AppCompat.Light"
     >
-    <androidx.appcompat.widget.SearchView
-        android:id="@+id/search"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:iconifiedByDefault="false"
-        app:queryHint="Search country"
-        app:layout_constraintTop_toTopOf="parent"/>
+
 </androidx.appcompat.widget.Toolbar>

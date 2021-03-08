@@ -35,16 +35,15 @@ public class ContinentFragment extends Fragment implements ContinentMvp,
     private ArrayList<Country> countriesOfContinent;
     private RecyclerView countryList;
 
-    public ContinentFragment(MainMvp.Presenter presenter, String continent, SearchView search) {
+    public ContinentFragment(MainMvp.Presenter presenter, String continent) {
         this.presenter = presenter;
         this.continent = continent;
-        this.search = search;
     }
 
     public static ContinentFragment newInstance(
-            MainMvp.Presenter presenter, String continent, SearchView search
+            MainMvp.Presenter presenter, String continent
     ) {
-        return new ContinentFragment(presenter, continent, search);
+        return new ContinentFragment(presenter, continent);
     }
 
     @Override
@@ -61,6 +60,7 @@ public class ContinentFragment extends Fragment implements ContinentMvp,
             @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_continent, container, false);
         countryList = view.findViewById(R.id.countryList);
+        search = view.findViewById(R.id.search);
         getCountries();
         setListView();
         initSearchListener();
@@ -90,9 +90,7 @@ public class ContinentFragment extends Fragment implements ContinentMvp,
     public void setListView() {
         if (countriesOfContinent != null) {
             adapter = new CountryListAdapter(context, countriesOfContinent, this);
-//            countryList.setLayoutManager(new LinearLayoutManager(getActivity()));
             countryList.setAdapter(adapter);
-//            countryList.setHasFixedSize(true);
         }
     }
 
