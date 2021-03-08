@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">CountryListNative</string>
+    <string name="title_activity_main">MainActivity</string>
+    <!--
+    This string is used for square devices and overridden by hello_world in
+    values-round/strings.xml for round devices.
+    -->
+    <string name="hello_world">Hello Square World!</string>
+    <string name="network_unavailable">
+        La red no está disponible, por favor verifique que cuente con acceso a internet!
+    </string>
+
+    <string name="key_country_det">country_detail</string>
+
+    <string-array name="continents">
+        <item>Africa</item>
+        <item>Americas</item>
+        <item>Asia</item>
+        <item>Europe</item>
+        <item>Oceania</item>
+        <item>Polar</item>
+    </string-array>
+
+</resources>
