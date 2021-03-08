@@ -73,13 +73,6 @@ public class ContinentFragment extends Fragment implements ContinentMvp,
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-        getCountries();
-        setListView();
-    }
-
-    @Override
     public void showMessage(String message) {
 
     }

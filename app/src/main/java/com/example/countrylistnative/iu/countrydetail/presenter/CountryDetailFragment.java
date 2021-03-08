@@ -112,21 +112,6 @@ public class CountryDetailFragment extends Fragment implements CountryDetailMvp.
             startOutline.setVisibility(View.GONE);
         }
 
-        String cod = country.getAlpha3Code();
-        boolean fav = !country.isFavorite();
-
-        startRate.setOnClickListener(v -> {
-            startRate.setVisibility(View.GONE);
-            startOutline.setVisibility(View.VISIBLE);
-            this.presenter.setCountryFav(cod, fav);
-        });
-
-        startOutline.setOnClickListener(v -> {
-            startOutline.setVisibility(View.GONE);
-            startRate.setVisibility(View.VISIBLE);
-            this.presenter.setCountryFav(cod, fav);
-        });
-
         return view;
     }
 
