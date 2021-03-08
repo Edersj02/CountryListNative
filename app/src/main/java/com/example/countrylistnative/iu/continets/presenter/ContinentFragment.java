@@ -121,7 +121,6 @@ public class ContinentFragment extends Fragment implements ContinentMvp,
     @Override
     public boolean onQueryTextChange(String newText) {
         adapter.filter(newText);
-        adapter.notifyDataSetChanged();
         return false;
     }
 }

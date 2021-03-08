@@ -90,7 +90,7 @@ public class CountryListAdapter extends RecyclerView.Adapter<CountryListAdapter.
                 items.addAll(count);
             }
         }
-        notifyDataSetChanged();
+        this.notifyDataSetChanged();
     }
 
     /**
