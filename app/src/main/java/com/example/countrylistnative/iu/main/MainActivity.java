@@ -35,7 +35,6 @@ public class MainActivity extends AppCompatActivity {
                     .add(R.id.main_container, fragment)
                     .commit();
         }
-
         new MainPresenter(fragment, DependencyProvider.provideCountryInteractor(this));
     }
 

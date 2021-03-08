@@ -15,4 +15,5 @@
 
     <dimen name="toolbar_elevation">2dp</dimen>
     <dimen name="padding_fragment">10dp</dimen>
+    <dimen name="padding_item">15dp</dimen>
 </resources>

@@ -8,6 +8,8 @@ import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SearchView;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager.widget.ViewPager;
@@ -26,6 +28,8 @@ public class MainFragment extends Fragment implements MainMvp.View {
     private MainMvp.Presenter presenter;
     private ViewPager pager;
     private ProgressBar progressBar;
+    private Toolbar toolbar;
+    private SearchView search;
 
     private Helper helper;
     private String[] continents;
@@ -54,6 +58,8 @@ public class MainFragment extends Fragment implements MainMvp.View {
         View view = inflater.inflate(R.layout.fragment_main, container, false);
 
         pager = view.findViewById(R.id.pager);
+        toolbar = container.findViewById(R.id.toolbar);
+        search = toolbar.findViewById(R.id.search);
         progressBar = view.findViewById(R.id.progressBar);
         getCountries();
 
@@ -97,12 +103,12 @@ public class MainFragment extends Fragment implements MainMvp.View {
     public void setViewPagerAdapter() {
         String[] continents = getResources().getStringArray(R.array.continents);
         SectionPagerAdapter pagerAdapter = new SectionPagerAdapter(getFragmentManager());
-        pagerAdapter.addFragment(ContinentFragment.newInstance(presenter, continents[0]));
-        pagerAdapter.addFragment(ContinentFragment.newInstance(presenter, continents[1]));
-        pagerAdapter.addFragment(ContinentFragment.newInstance(presenter, continents[2]));
-        pagerAdapter.addFragment(ContinentFragment.newInstance(presenter, continents[3]));
-        pagerAdapter.addFragment(ContinentFragment.newInstance(presenter, continents[4]));
-        pagerAdapter.addFragment(ContinentFragment.newInstance(presenter, continents[5]));
+        pagerAdapter.addFragment(ContinentFragment.newInstance(presenter, continents[0], search));
+        pagerAdapter.addFragment(ContinentFragment.newInstance(presenter, continents[1], search));
+        pagerAdapter.addFragment(ContinentFragment.newInstance(presenter, continents[2], search));
+        pagerAdapter.addFragment(ContinentFragment.newInstance(presenter, continents[3], search));
+        pagerAdapter.addFragment(ContinentFragment.newInstance(presenter, continents[4], search));
+        pagerAdapter.addFragment(ContinentFragment.newInstance(presenter, continents[5], search));
         pager.setAdapter(pagerAdapter);
     }
 

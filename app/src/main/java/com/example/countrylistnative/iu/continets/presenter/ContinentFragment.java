@@ -6,11 +6,13 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.countrylistnative.R;
 import com.example.countrylistnative.componets.listadapters.CountryListAdapter;
@@ -20,23 +22,29 @@ import com.example.countrylistnative.iu.main.presenter.MainMvp;
 
 import java.util.ArrayList;
 
-public class ContinentFragment extends Fragment implements ContinentMvp {
+public class ContinentFragment extends Fragment implements ContinentMvp,
+        CountryListAdapter.RecyclerItemClick, SearchView.OnQueryTextListener {
 
     private Context context;
+    CountryListAdapter adapter;
+    private SearchView search;
 
     private final MainMvp.Presenter presenter;
     private final String continent;
 
     private ArrayList<Country> countriesOfContinent;
-    private ListView countryList;
+    private RecyclerView countryList;
 
-    public ContinentFragment(MainMvp.Presenter presenter, String continent) {
+    public ContinentFragment(MainMvp.Presenter presenter, String continent, SearchView search) {
         this.presenter = presenter;
         this.continent = continent;
+        this.search = search;
     }
 
-    public static ContinentFragment newInstance(MainMvp.Presenter presenter, String continent) {
-        return new ContinentFragment(presenter, continent);
+    public static ContinentFragment newInstance(
+            MainMvp.Presenter presenter, String continent, SearchView search
+    ) {
+        return new ContinentFragment(presenter, continent, search);
     }
 
     @Override
@@ -55,7 +63,7 @@ public class ContinentFragment extends Fragment implements ContinentMvp {
         countryList = view.findViewById(R.id.countryList);
         getCountries();
         setListView();
-        setItemClickListener();
+        initSearchListener();
         return view;
     }
 
@@ -81,18 +89,21 @@ public class ContinentFragment extends Fragment implements ContinentMvp {
     @Override
     public void setListView() {
         if (countriesOfContinent != null) {
-            CountryListAdapter adapter = new CountryListAdapter(context, countriesOfContinent);
+            adapter = new CountryListAdapter(context, countriesOfContinent, this);
+//            countryList.setLayoutManager(new LinearLayoutManager(getActivity()));
             countryList.setAdapter(adapter);
+//            countryList.setHasFixedSize(true);
         }
     }
 
     @Override
-    public void setItemClickListener() {
-        countryList.setOnItemClickListener(
-                (parent, view1, position, id) -> {
-                    showDetailScreen(countriesOfContinent.get(position));
-                }
-        );
+    public void itemClick(Country item) {
+        showDetailScreen(item);
+    }
+
+    @Override
+    public void initSearchListener() {
+        search.setOnQueryTextListener(this);
     }
 
     @Override
@@ -102,4 +113,15 @@ public class ContinentFragment extends Fragment implements ContinentMvp {
         startActivity(intent);
     }
 
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        adapter.filter(newText);
+        adapter.notifyDataSetChanged();
+        return false;
+    }
 }

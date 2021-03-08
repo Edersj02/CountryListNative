@@ -13,8 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CountryListNative"
         android:usesCleartextTraffic="true">
-        <activity android:name=".iu.countrydetail.CountryDetailActivity">
-
+        <activity
+            android:name=".iu.countrydetail.CountryDetailActivity"
+            android:parentActivityName=".iu.main.MainActivity">
         </activity>
         <activity
             android:name=".iu.main.MainActivity"
