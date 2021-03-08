@@ -45,4 +45,9 @@ public class CountryInteractor implements ICountryInteractor {
     public ArrayList<Country> getCountriesActPagePref() {
         return repository.getCountriesFromLocalStorage();
     }
+
+    @Override
+    public void setCountryFavorite(String cod, boolean fav) {
+        repository.setCountryFavorite(cod, fav);
+    }
 }

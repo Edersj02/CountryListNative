@@ -35,6 +35,12 @@ public class MainPresenter implements MainMvp.Presenter, ICountryInteractor.getC
     }
 
     @Override
+    public void setCountryFav(String cod, boolean fav) {
+        this.interactor.setCountryFavorite(cod, fav);
+        this.view.getCountries();
+    }
+
+    @Override
     public void onSuccess(List<Country> countries) {
         this.view.showLoading(false);
         this.view.setCountries(countries);

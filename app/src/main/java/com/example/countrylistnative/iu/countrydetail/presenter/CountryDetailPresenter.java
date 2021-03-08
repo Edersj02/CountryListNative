@@ -20,4 +20,9 @@ public class CountryDetailPresenter implements CountryDetailMvp.Presenter {
     public ArrayList<Country> getCountriesActPagePref() {
         return this.interactor.getCountriesActPagePref();
     }
+
+    @Override
+    public void setCountryFav(String cod, boolean fav) {
+        this.interactor.setCountryFavorite(cod, fav);
+    }
 }

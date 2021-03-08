@@ -13,5 +13,7 @@ public interface CountryDetailMvp {
 
     interface Presenter {
         ArrayList<Country> getCountriesActPagePref();
+
+        void setCountryFav(String cod, boolean fav);
     }
 }

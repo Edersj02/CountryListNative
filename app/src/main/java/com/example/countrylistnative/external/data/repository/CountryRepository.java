@@ -76,4 +76,9 @@ public class CountryRepository implements ICountryRepository {
     public ArrayList<Country> getCountriesActPagePref() {
         return preferences.getCountriesActPagePref();
     }
+
+    @Override
+    public void setCountryFavorite(String cod, boolean fav) {
+        preferences.setCountryFavorite(cod, fav);
+    }
 }

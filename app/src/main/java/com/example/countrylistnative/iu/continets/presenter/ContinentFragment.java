@@ -17,16 +17,20 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.countrylistnative.R;
 import com.example.countrylistnative.componets.listadapters.CountryListAdapter;
 import com.example.countrylistnative.entities.Country;
+import com.example.countrylistnative.helpers.Helper;
 import com.example.countrylistnative.iu.countrydetail.CountryDetailActivity;
 import com.example.countrylistnative.iu.main.presenter.MainMvp;
 
 import java.util.ArrayList;
 
 public class ContinentFragment extends Fragment implements ContinentMvp,
-        CountryListAdapter.RecyclerItemClick, SearchView.OnQueryTextListener {
+        CountryListAdapter.RecyclerItemClick,
+        CountryListAdapter.RecyclerStartFavClick,
+        SearchView.OnQueryTextListener {
 
     private Context context;
-    CountryListAdapter adapter;
+    private Helper helper;
+    private CountryListAdapter adapter;
     private SearchView search;
 
     private final MainMvp.Presenter presenter;
@@ -50,6 +54,7 @@ public class ContinentFragment extends Fragment implements ContinentMvp,
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.context = getContext();
+        this.helper = new Helper(context);
     }
 
     @Nullable
@@ -65,6 +70,13 @@ public class ContinentFragment extends Fragment implements ContinentMvp,
         setListView();
         initSearchListener();
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getCountries();
+        setListView();
     }
 
     @Override
@@ -89,7 +101,7 @@ public class ContinentFragment extends Fragment implements ContinentMvp,
     @Override
     public void setListView() {
         if (countriesOfContinent != null) {
-            adapter = new CountryListAdapter(context, countriesOfContinent, this);
+            adapter = new CountryListAdapter(context, countriesOfContinent, this, this);
             countryList.setAdapter(adapter);
         }
     }
@@ -97,6 +109,13 @@ public class ContinentFragment extends Fragment implements ContinentMvp,
     @Override
     public void itemClick(Country item) {
         showDetailScreen(item);
+    }
+
+    @Override
+    public void startFavClick(Country item) {
+        String cod = item.getAlpha3Code();
+        boolean fav = !item.isFavorite();
+        this.presenter.setCountryFav(cod, fav);
     }
 
     @Override

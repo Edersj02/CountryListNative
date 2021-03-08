@@ -15,17 +15,31 @@
         android:text="Colombia"
         android:textSize="30sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@+id/imageButton"
+        app:layout_constraintEnd_toStartOf="@+id/startRate"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
-        android:id="@+id/imageButton"
+        android:id="@+id/startRate"
         android:layout_width="49dp"
         android:layout_height="50dp"
         android:layout_marginTop="64dp"
         android:layout_marginEnd="16dp"
         android:background="@null"
+        android:visibility="visible"
+        android:src="@drawable/ic_star_rate_64"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@tools:sample/backgrounds/scenic" />
+
+    <ImageButton
+        android:id="@+id/startOutline"
+        android:layout_width="49dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="64dp"
+        android:layout_marginEnd="16dp"
+        android:background="@null"
+        android:visibility="invisible"
         android:src="@drawable/ic_star_outline_64"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"

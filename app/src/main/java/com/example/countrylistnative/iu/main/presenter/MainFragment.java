@@ -8,7 +8,6 @@ import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
@@ -29,7 +28,7 @@ public class MainFragment extends Fragment implements MainMvp.View {
     private ViewPager pager;
     private ProgressBar progressBar;
     private Toolbar toolbar;
-    private SearchView search;
+    private SectionPagerAdapter pagerAdapter;
 
     private Helper helper;
     private String[] continents;
@@ -59,7 +58,6 @@ public class MainFragment extends Fragment implements MainMvp.View {
 
         pager = view.findViewById(R.id.pager);
         toolbar = container.findViewById(R.id.toolbar);
-        search = toolbar.findViewById(R.id.search);
         progressBar = view.findViewById(R.id.progressBar);
         getCountries();
 
@@ -102,7 +100,7 @@ public class MainFragment extends Fragment implements MainMvp.View {
     @Override
     public void setViewPagerAdapter() {
         String[] continents = getResources().getStringArray(R.array.continents);
-        SectionPagerAdapter pagerAdapter = new SectionPagerAdapter(getFragmentManager());
+        pagerAdapter = new SectionPagerAdapter(getFragmentManager());
 
         pagerAdapter.addFragment(ContinentFragment.newInstance(presenter, continents[0]));
         pagerAdapter.addFragment(ContinentFragment.newInstance(presenter, continents[1]));

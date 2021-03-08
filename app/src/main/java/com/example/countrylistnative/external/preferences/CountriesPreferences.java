@@ -72,4 +72,15 @@ public class CountriesPreferences implements ICountriesPreferences {
         }
         return null;
     }
+
+    @Override
+    public void setCountryFavorite(String cod, boolean fav) {
+        ArrayList<Country> countries = getCountriesPreferences();
+        for (int i = 0; i < countries.size(); i++) {
+            if (countries.get(i).getAlpha3Code().equals(cod)) {
+                countries.get(i).setFavorite(fav);
+            }
+        }
+        saveCountries(countries);
+    }
 }

@@ -29,6 +29,8 @@ public interface MainMvp {
         ArrayList<Country> getCountriesFromLocalStorage();
 
         void saveCountriesActualPage(ArrayList<Country> countries);
+
+        void setCountryFav(String cod, boolean fav);
     }
 
 }

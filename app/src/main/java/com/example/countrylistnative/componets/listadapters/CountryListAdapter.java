@@ -2,12 +2,14 @@ package com.example.countrylistnative.componets.listadapters;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -32,12 +34,15 @@ public class CountryListAdapter extends RecyclerView.Adapter<CountryListAdapter.
     private ArrayList<Country> items;
     private ArrayList<Country> originalItems;
     private RecyclerItemClick itemClick;
+    private RecyclerStartFavClick startFavClick;
 
-    public CountryListAdapter(Context context, ArrayList<Country> countries, RecyclerItemClick itemClick) {
+    public CountryListAdapter(Context context, ArrayList<Country> countries,
+                              RecyclerItemClick itemClick, RecyclerStartFavClick startFavClick) {
         this.context = context;
         this.items = countries;
         this.originalItems = new ArrayList<>();
         this.itemClick = itemClick;
+        this.startFavClick = startFavClick;
         originalItems.addAll(items);
         this.helper = new Helper(context);
     }
@@ -62,12 +67,23 @@ public class CountryListAdapter extends RecyclerView.Adapter<CountryListAdapter.
             helper.showMaps(item.getLatLng());
         });
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                itemClick.itemClick(item);
-            }
+        Drawable startRate = context.getDrawable(R.drawable.ic_star_rate_24);
+        Drawable startOutline = context.getDrawable(R.drawable.ic_star_outline_24);
+
+        if (item.isFavorite()) {
+            holder.getStartRate().setImageDrawable(startRate);
+        }
+
+        holder.getStartRate().setOnClickListener(v -> {
+            holder.getStartRate().setImageDrawable(
+                    !item.isFavorite() ?
+                            startRate :
+                            startOutline
+            );
+            startFavClick.startFavClick(item);
         });
+
+        holder.itemView.setOnClickListener(v -> itemClick.itemClick(item));
     }
 
     @Override
@@ -79,8 +95,7 @@ public class CountryListAdapter extends RecyclerView.Adapter<CountryListAdapter.
         if (strSearch.length() == 0) {
             items.clear();
             items.addAll(originalItems);
-        }
-        else {
+        } else {
             items.clear();
             for (Country country : originalItems) {
                 if (country.getName().toLowerCase().contains(strSearch)) {
@@ -99,29 +114,39 @@ public class CountryListAdapter extends RecyclerView.Adapter<CountryListAdapter.
         private final TextView nameCountry;
         private final TextView capital;
         private final ImageView flag;
+        private final ImageButton startRate;
 
         public ViewHolder(View view) {
             super(view);
             nameCountry = view.findViewById(R.id.countryName);
             capital = view.findViewById(R.id.capital);
             flag = (ImageView) view.findViewById(R.id.flag);
+            startRate = (ImageButton) view.findViewById(R.id.imageButton);
         }
 
         public TextView getNameCountry() {
-            return  nameCountry;
+            return nameCountry;
         }
 
         public TextView getCapital() {
-            return  capital;
+            return capital;
         }
 
         public ImageView getFlag() {
-            return  flag;
+            return flag;
+        }
+
+        public ImageButton getStartRate() {
+            return startRate;
         }
     }
 
     public interface RecyclerItemClick {
         void itemClick(Country item);
+    }
+
+    public interface RecyclerStartFavClick {
+        void startFavClick(Country item);
     }
 
 }

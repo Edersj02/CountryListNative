@@ -19,4 +19,6 @@ public interface ICountryRepository {
     void saveCountriesActualPage(ArrayList<Country> countries);
 
     ArrayList<Country> getCountriesActPagePref();
+
+    void setCountryFavorite(String cod, boolean fav);
 }

@@ -30,15 +30,17 @@ public class Country implements Parcelable {
     @SerializedName("languages")
     private ArrayList<Language> languages;
     @SerializedName("translations")
-    private Translation Translations;
+    private Translation translation;
     @SerializedName("flag")
     private String flag;
+    //
+    private boolean favorite;
 
     public Country(
             String name, String alpha2Code, String alpha3Code, String capital, String region,
             String population, ArrayList<Double> latLng, ArrayList<String> borders,
             ArrayList<Currency> currencies, ArrayList<Language> languages,
-            Translation translations, String flag
+            Translation translations, String flag, boolean favorite
     ) {
         this.name = name;
         this.alpha2Code = alpha2Code;
@@ -50,8 +52,9 @@ public class Country implements Parcelable {
         this.borders = borders;
         this.currencies = currencies;
         this.languages = languages;
-        Translations = translations;
+        this.translation = translations;
         this.flag = flag;
+        this.favorite = favorite;
     }
 
     public String getName() {
@@ -135,11 +138,11 @@ public class Country implements Parcelable {
     }
 
     public Translation getTranslations() {
-        return Translations;
+        return translation;
     }
 
     public void setTranslations(Translation translations) {
-        Translations = translations;
+        translation = translations;
     }
 
     public String getFlag() {
@@ -148,6 +151,14 @@ public class Country implements Parcelable {
 
     public void setFlag(String flag) {
         this.flag = flag;
+    }
+
+    public boolean isFavorite() {
+        return favorite;
+    }
+
+    public void setFavorite(boolean favorite) {
+        this.favorite = favorite;
     }
 
     protected Country(Parcel in) {
@@ -181,8 +192,9 @@ public class Country implements Parcelable {
         } else {
             languages = null;
         }
-        Translations = (Translation) in.readValue(Translation.class.getClassLoader());
+        translation = (Translation) in.readValue(Translation.class.getClassLoader());
         flag = in.readString();
+        favorite = in.readByte() != 0x00;
     }
 
     @Override
@@ -222,8 +234,9 @@ public class Country implements Parcelable {
             dest.writeByte((byte) (0x01));
             dest.writeList(languages);
         }
-        dest.writeValue(Translations);
+        dest.writeValue(translation);
         dest.writeString(flag);
+        dest.writeByte((byte) (favorite ? 0x01 : 0x00));
     }
 
     @SuppressWarnings("unused")

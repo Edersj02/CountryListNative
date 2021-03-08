@@ -20,4 +20,6 @@ public interface ICountryInteractor {
 
     ArrayList<Country> getCountriesActPagePref();
 
+    void setCountryFavorite(String cod, boolean fav);
+
 }

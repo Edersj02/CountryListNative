@@ -1,11 +1,14 @@
 package com.example.countrylistnative.iu.countrydetail.presenter;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -22,6 +25,8 @@ import java.util.Locale;
 
 public class CountryDetailFragment extends Fragment implements CountryDetailMvp.View {
 
+    private Context context;
+
     private Country country;
     private CountryDetailMvp.Presenter presenter;
 
@@ -36,6 +41,7 @@ public class CountryDetailFragment extends Fragment implements CountryDetailMvp.
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        context = getContext();
         Bundle extras = getActivity().getIntent().getExtras();
         country = extras.getParcelable(getString(R.string.key_country_det));
 
@@ -95,6 +101,31 @@ public class CountryDetailFragment extends Fragment implements CountryDetailMvp.
         } else {
             bordersValue.setText(bors);
         }
+        ImageButton startRate = view.findViewById(R.id.startRate);
+        ImageButton startOutline = view.findViewById(R.id.startOutline);
+
+        startRate.setVisibility(View.GONE);
+        startOutline.setVisibility(View.VISIBLE);
+
+        if (country.isFavorite()) {
+            startRate.setVisibility(View.VISIBLE);
+            startOutline.setVisibility(View.GONE);
+        }
+
+        String cod = country.getAlpha3Code();
+        boolean fav = !country.isFavorite();
+
+        startRate.setOnClickListener(v -> {
+            startRate.setVisibility(View.GONE);
+            startOutline.setVisibility(View.VISIBLE);
+            this.presenter.setCountryFav(cod, fav);
+        });
+
+        startOutline.setOnClickListener(v -> {
+            startOutline.setVisibility(View.GONE);
+            startRate.setVisibility(View.VISIBLE);
+            this.presenter.setCountryFav(cod, fav);
+        });
 
         return view;
     }
